@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>WebBase From QA ninja</title>
+    <script src="js/vue.js"></script>
+
+</head>
+
+<body>
+    <div id="app">
+
+        <h1>Cadastro de Alunos</h1>
+
+    <form action="">
+        <label for="nomeCompleto">Nome Completo:</label>
+
+        <input name ="nomeCompleto"type="text" v-model = "form.nomeCompleto">
+
+        <label for="email">E-mail:</label>
+
+        <input name ="email"type="text" v-model = "form.email">
+
+        <label for="nota">Nota:</label>
+
+        <input name ="nota" type="text" v-model = "form.nota">
+
+        <input type="button" value="Cadastro" @Click="adicionarContatos">
+
+    </form>
+    
+
+    <div>
+        <table class = "table">
+            <thead>
+                    <th>Nome Completo</th>
+                    <th>E-mail</th>
+                    <th>Nota</th>
+                    <th>Ações</th>
+               
+            </thead>
+
+            <tbody>
+                <tr v-for="aluno in alunos">
+                    <td>{{aluno.nomeCompleto}}</td>
+                    <td>{{aluno.email}}</td>
+                    <td>{{aluno.nota}}</td>
+                    <td>
+                        <button class="danger" @click="apagarContatos(aluno)">Apagar</button>
+                    </td>
+                </tr>
+
+        </table>
+    </div>
+
+    </div>
+
+    <script>
+        var app = new Vue({
+            el: '#app',
+            data: 
+            
+            { 
+                form : {
+                nomeCompleto: '',
+                email: '',
+                nota: ''
+            },
+                alunos: [
+                {nomeCompleto: 'jayme', email: 'jayme@gmail.com', nota: 10}
+                ]
+                  
+            },
+            methods:{
+                limpaFormulario: function(){
+                    this.form = {
+                        nomeCompleto: '',
+                        email: '',
+                        nota: ''
+                    }
+                },
+                adicionarContatos: function(){
+                    this.alunos.push(this.form)
+                    this.limpaFormulario()
+                },
+                apagarContatos: function(aluno){
+                   var posicao =  this.alunos.indexOf(aluno)
+                   this.alunos.splice(posicao, 1)
+                }
+
+            
+            }
+        });
+
+    </script>
+
+
+<style>
+.table{
+    margin-top: 20px;
+    width: 100%;
+    text-align: left;
+}
+
+.table th, .table td{
+    border-top: 1px solid #ccc;
+
+}
+
+input{
+    display: block;
+}
+
+input[type=button]
+{
+    margin-top: 10px;
+    background-color: darkblue;
+    border-color:darkblue;
+    color: white;
+}
+
+.table th:last-child, .table td:last-child{
+    text-align: right;
+}
+
+.danger{
+    background-color: pink;
+    border-color: pink;
+    color: white;
+    
+}
+
+</style>
+
+   
+
+</body>    
+
+</html>
